@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>MB TODOList</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <style media="screen">
+  body {
+    color: white;
+    background-image: url("http://68.media.tumblr.com/6a70954862790e616d3ce3c6b73e3093/tumblr_oswfhz6DaM1qhrm3lo1_400.gif");
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat:no-repeat;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2em;
+  }
+
+  .shade {
+    background-color: rgba(3, 3, 3, 0.6);
+    min-height: 100vh;
+    min-width: 100vw;
+    top: 0;
+    bottom: 100;
+    position: absolute;
+  }
+
+  h1 {
+    margin-top: 10rem;
+    margin-bottom: 0px;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+  }
+
+  .lead {
+    font-size: 2rem;
+  }
+
+  button[type=submit] {
+    float: right;
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 2rem;
+
+  }
+
+  li {
+    border-bottom: 1px dotted white;
+    padding-top: .75px;
+    padding-bottom: .75px;
+  }
+
+  input[type=checkbox] {
+    float: right;
+    height: 20px;
+    width: 20px;
+    margin-top: 10px;
+    border: 1px solid white;
+  }
+
+  </style>
+
+</head>
+<body>
+  <div class="shade"
+  <div class="container">
+    <h1 class="text-center display-2">MB TODO List</h1>
+    <p class="lead text-center">Get Things Done!</p>
+    <div class="row">
+      <form id="form" class="col-8 mx-auto">
+        <div class="input-group">
+          <input id="input" class="form-control" placeholder="Enter a TODOList Item"> <span> <button id="btn" type="submit" class="btn btn-primary">Add to List</button> </span>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <ul id="list" class="col-8 mx-auto">
+        <!--<li>TODOList Item <input type="checkbox" aria-label="Checkbox for following text input"> </li>-->
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  window.onload = function() {
+    //variables
+    var list = document.getElementById("list");
+    var input = document.getElementById("input");
+    var btn = document.getElementById("btn");
+    var id = 1;
+
+    //button event listener
+    btn.addEventListener("click", addTodoItem);
+
+    //dynamic event listener for li
+    $(document).on("click", ".checkboxes", function() {
+        var chkBox = $(this).attr("id");
+        var num = chkBox.split("-")[1];
+        console.log(num);
+        var listItem = document.getElementById("li-"+num);
+        listItem.style.textDecoration = "line-through";
+    });
+
+    //add todo list Item
+    function addTodoItem() {
+      if(input.value === "") {
+        alert("List Item Cannot Be Empty!");
+      }
+      else {
+        if(list.style.borderTop === "") {
+          list.style.borderTop = "2px solid white";
+        }
+        var li = document.createElement("li");
+        var text = document.createTextNode(input.value);
+        li.id = "li-"+id;
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "checkboxes";
+        checkbox.id = "box-"+id;
+        li.appendChild(text);
+        li.appendChild(checkbox);
+        list.appendChild(li);
+        id++;
+      }
+    }
+  };
+</script>
+</body>
+</html>
